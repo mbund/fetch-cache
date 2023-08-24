@@ -55,7 +55,10 @@ const server = Bun.serve({
           .join(", ")}]`
       );
 
-    return new Response(cacheMap.get(hook.cacheId));
+    const headers = new Headers();
+    headers.append("Cache-Control", "no-cache");
+
+    return new Response(cacheMap.get(hook.cacheId), { headers });
   },
 });
 
